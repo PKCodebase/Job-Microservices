@@ -1,6 +1,7 @@
 package com.jobapp.ReviewMs.service.impl;
 
 import com.jobapp.ReviewMs.entity.Review;
+import com.jobapp.ReviewMs.repository.ReviewRepository;
 import com.jobapp.ReviewMs.service.ReviewService;
 import org.springframework.stereotype.Service;
 
@@ -8,28 +9,63 @@ import java.util.List;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
+
+    private final ReviewRepository reviewRepository;
+
+    public ReviewServiceImpl(ReviewRepository reviewRepository) {
+        this.reviewRepository = reviewRepository;
+    }
+
     @Override
     public List<Review> getAllReviews(Long companyId) {
-        return List.of();
+        List<Review> reviews = reviewRepository.findByCompanyId(companyId);
+        return reviews;
     }
 
     @Override
     public boolean addReview(Long companyId, Review review) {
-        return false;
+        if(companyId != null && review != null)
+        {
+            review.setCompanyId(companyId);
+            review.setTitle(review.getTitle());
+            review.setDescription(review.getDescription());
+            review.setRating(review.getRating());
+            reviewRepository.save(review);
+            return true;
+        }else {
+            return false;
+        }
     }
 
     @Override
-    public Review getReview(Long companyId, Long reviewId, Review review) {
-        return null;
+    public Review getReview( Long reviewId) {
+       return reviewRepository.findById(reviewId).orElse(null);
+
     }
 
     @Override
-    public boolean updateReview(Long companyId, Long reviewId, Review review) {
-        return false;
+    public boolean updateReview( Long reviewId, Review updatedReview) {
+        Review review = reviewRepository.findById(reviewId).orElse(null);
+        if(review != null){
+            review.setTitle(updatedReview.getTitle());
+            review.setDescription(updatedReview.getDescription());
+            review.setRating(updatedReview.getRating());
+            review.setCompanyId(updatedReview.getCompanyId());
+            reviewRepository.save(review);
+            return true;
+        }else{
+            return false;
+        }
     }
 
     @Override
-    public boolean deleteReview(Long companyId, Long reviewId) {
-        return false;
+    public boolean deleteReview( Long reviewId) {
+        Review review = reviewRepository.findById(reviewId).orElse(null);
+        if(review != null){
+            reviewRepository.delete(review);
+            return true;
+        }else {
+            return false;
+        }
     }
 }
