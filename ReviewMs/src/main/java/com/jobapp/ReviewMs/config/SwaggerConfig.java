@@ -12,8 +12,8 @@ public class SwaggerConfig {
     public OpenAPI openAPI(){
         return new OpenAPI()
                 .info(new Info()
-                        .title("Spring Security API")
-                        .description("API documentation for Spring Security application with JWT authentication")
+                        .title("Review Ms  API")
+                        .description("API documentation for Review Ms")
                         .version("1.0.0"));
     }
 }
