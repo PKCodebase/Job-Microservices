@@ -27,9 +27,9 @@ public class ReviewServiceImpl implements ReviewService {
         if(companyId != null && review != null)
         {
             review.setCompanyId(companyId);
-            review.setTitle(review.getTitle());
-            review.setDescription(review.getDescription());
-            review.setRating(review.getRating());
+//            review.setTitle(review.getTitle());
+//            review.setDescription(review.getDescription());
+//            review.setRating(review.getRating());
             reviewRepository.save(review);
             return true;
         }else {

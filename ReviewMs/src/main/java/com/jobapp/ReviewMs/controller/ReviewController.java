@@ -49,8 +49,8 @@ public class ReviewController {
     public ResponseEntity<String> deleteReview(@PathVariable Long reviewId){
         boolean isReviewDeleted = reviewService.deleteReview(reviewId);
         if(isReviewDeleted)
-            return new ResponseEntity<>("Review deleted successfully", HttpStatus.OK);
-        else return new ResponseEntity<>("Review not deleted", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Review deleted successfully : ", HttpStatus.OK);
+        else return new ResponseEntity<>("Review not Found : ", HttpStatus.NOT_FOUND);
     }
 
 
